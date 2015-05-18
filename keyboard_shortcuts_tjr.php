@@ -67,7 +67,7 @@ class keyboard_shortcuts_tjr extends rcube_plugin
         $rcmail = rcmail::get_instance();
         $skin  = $rcmail->config->get('skin');
 
-        if(!file_exists('plugins/keyboard_shortcuts/skins/' . $skin . '/images/keyboard.png')){
+        if(!file_exists('plugins/keyboard_shortcuts_tjr/skins/' . $skin . '/images/keyboard.png')){
           $skin = "default";
         }
 
@@ -75,7 +75,7 @@ class keyboard_shortcuts_tjr extends rcube_plugin
         $keyboard_shortcuts = $rcmail->config->get('keyboard_shortcuts_extras', array());
 
         $c = "";
-        $c .= '<span id="keyboard_shortcuts_title">' . $this->gettext("title") . ":&nbsp;</span><a id='keyboard_shortcuts_link' href='#' class='button' title='".$this->gettext("keyboard_shortcuts")." ".$this->gettext("show")."' onclick='return keyboard_shortcuts_show_help()'><img align='top' src='plugins/keyboard_shortcuts/skins/".$skin."/images/keyboard.png' alt='".$this->gettext("keyboard_shortcuts")." ".$this->gettext("show")."' /></a>\n";
+        $c .= '<span id="keyboard_shortcuts_title">' . $this->gettext("title") . ":&nbsp;</span><a id='keyboard_shortcuts_link' href='#' class='button' title='".$this->gettext("keyboard_shortcuts")." ".$this->gettext("show")."' onclick='return keyboard_shortcuts_show_help()'><img align='top' src='plugins/keyboard_shortcuts_tjr/skins/".$skin."/images/keyboard.png' alt='".$this->gettext("keyboard_shortcuts")." ".$this->gettext("show")."' /></a>\n";
         $c .= "<div id='keyboard_shortcuts_help'>";
         $c .= "<div><h4>".$this->gettext("mailboxview")."</h4>";
         $c .= "<div class='shortcut_key'>?</div> ".$this->gettext('help')."<br class='clear' />";
