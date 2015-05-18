@@ -91,6 +91,7 @@ class keyboard_shortcuts_tjr extends rcube_plugin
         $c .= "<div class='shortcut_key'>R</div> ".$this->gettext('replytoallmessage')."<br class='clear' />";
         $c .= "<div class='shortcut_key'>s</div> ".$this->gettext('quicksearch')."<br class='clear' />";
         $c .= "<div class='shortcut_key'>u</div> ".$this->gettext('checkmail')."<br class='clear' />";
+		$c .= "<div class='shortcut_key'>u</div> Select the current message<br class='clear' />";
         $c .= "<div class='shortcut_key'> </div> <br class='clear' />";
         $c .= "</div>";
 
