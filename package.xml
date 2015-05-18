@@ -3,14 +3,14 @@
    http://pear.php.net/dtd/tasks-1.0.xsd
    http://pear.php.net/dtd/package-2.0
    http://pear.php.net/dtd/package-2.0.xsd">
-	<name>keyboard_shortcuts</name>
+	<name>keyboard_shortcuts_tjr</name>
 	<lead>
-		<name>Cor Bosman</name>
-		<user>cor</user>
-		<email>cor@roundcu.be</email>
+		<name>Tom Ritter</name>
+		<user>tjr</user>
+		<email>tom@ritter.vg</email>
 		<active>yes</active>
 	</lead>
-	<uri>https://github.com/corbosman/keyboard_shortcuts</uri>
+	<uri>https://github.com/tomrittervg/keyboard_shortcuts</uri>
 	<version>
 		<release>2.0.2</release>
 	</version>

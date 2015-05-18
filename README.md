@@ -1,18 +1,13 @@
-keyboard_shortcuts
-==================
+keyboard_shortcuts_tjr
+======================
 
-keyboard_shortcuts allows some functionality to be handled with the keyboard. It adds an icon to the mail screen to view all available shortcuts. 
-
-OLD VERSIONS
-------------
-
-This project has moved from Google Code to git. Older version are available at [Google Code](http://code.google.com/p/roundcube-plugins/downloads/list). This git repository is only for roundcube versions 0.8 and higher.
+keyboard_shortcuts_tjr allows some functionality to be handled with the keyboard. It adds an icon to the mail screen to view all available shortcuts.   It was forked from the real plugin and modified in ways to satisfy me.
 
 CONTACT
 -------
-Author:   Cor Bosman (cor@roundcu.be)
+Author:   Tom Ritter (well, not really)
 
-Bug reports through github (https://github.com/corbosman/keyboard_shortcuts/issues)
+I just copied the plugin and randomly hacked at things. The real effort was done by: Cor Bosman (cor@roundcu.be)
 
 LICENSE
 -------

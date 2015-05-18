@@ -43,7 +43,7 @@
  * R:	Reply to all of message
  */
 
-class keyboard_shortcuts extends rcube_plugin
+class keyboard_shortcuts_tjr extends rcube_plugin
 {
     public $task = 'mail|compose';
 
@@ -55,8 +55,8 @@ class keyboard_shortcuts extends rcube_plugin
       $this->require_plugin('jqueryui');
 
       if($_SESSION['username'] && empty($_SESSION['plugin.newuserdialog'])){
-        $this->include_stylesheet('keyboard_shortcuts.css');
-        $this->include_script('keyboard_shortcuts.js');
+        $this->include_stylesheet('keyboard_shortcuts_tjr.css');
+        $this->include_script('keyboard_shortcuts_tjr.js');
         $this->add_hook('template_container', array($this, 'html_output'));
         $this->add_texts('localization', true);
       }
