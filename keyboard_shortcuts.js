@@ -97,13 +97,22 @@ $(function() {
         case 117:		// u = update (check for mail)
           rcmail.command('checkmail');
           return false;
-        case 120:       // x = select
+        case 120:		// x = select
           var row_uid = $('#messagelist .focused').data('uid');
           rcube_list_widget._instances[0].highlight_row(row_uid, true);
           //I don't think I need to call select_row, it may do some extra stuff, but I don't think I need it.
           //rcmail.message_list.select_row(row_uid, CONTROL_KEY, true);
           rcube_list_widget._instances[0].triggerEvent('select');
           $("#selectcount").html(rcmail.message_list.selection.length);
+          return false;
+        case 108:		// l = move to
+          //Simulate an event, anchored to a random element
+          var e = {}
+          e.target = $('#messagemenulink')
+          //Open the folder selector
+          $('#folder-selector ul li').show();
+          rcmail.folder_selector(e, function(folder) { rcmail.command('move', folder); });
+          $('#folder-selector-filter').focus();
           return false;
       }
     } else if (rcmail.env.action == 'show' || rcmail.env.action == 'preview') {
@@ -143,3 +152,97 @@ $(function() {
 function ks_help() {
   keyboard_shortcuts_show_help();
 }
+
+var folderfilter = function(e, str) {
+    var selectedFolder = $('#folder-selector ul li:visible a.selected');
+    switch(e.which)
+    {
+    case 37: //left arrow
+    case 38: //up arrow
+        if(selectedFolder.length) {
+            //What I should be able to do:
+            //selectedFolder.parent().prev(':visible')
+            //What I have to do because that doesn't work???:
+            var newFolder = $('a', selectedFolder.parent().prevAll().filter(':visible')[0]);
+        }
+        else {
+            var newFolder = $('#folder-selector ul li:visible a:last');
+        }
+        selectedFolder.removeClass('selected');
+        $(newFolder).addClass('selected');
+        $(newFolder).focus();
+        break;
+    case 39: //right arrow
+    case 40: //down arrow
+        if(selectedFolder.length) {
+            //What I should be able to do:
+            //selectedFolder.parent().next(':visible')
+            //What I have to do because that doesn't work???:
+            var newFolder = $('a', selectedFolder.parent().nextAll().filter(':visible')[0]);
+        }
+        else {
+            var newFolder = $('#folder-selector ul li:visible a:first');
+        }
+        selectedFolder.removeClass('selected');
+        $(newFolder).addClass('selected');
+        $(newFolder).focus();
+        break;
+    case 13: //enter key
+        rcmail.command('move', selectedFolder.data('id'));
+
+        //Hide Menu
+        var e = {}
+        e.target = $('#messagemenulink')
+        rcmail.hide_menu('folder-selector', e);
+
+        //Reset filter
+        $('#folder-selector-filter').val('');
+        $('#folder-selector ul li').show();
+
+        $('#messagemenulink').blur();
+        break;
+    case 9: //tab key
+        break;
+    default:
+        str = str.toLowerCase();
+        //TODO: Should be able to make this more performant
+        $('#folder-selector ul li').show();
+        $('#folder-selector ul li').filter(function (i, a) {
+            t = $('a span', a).get(0).innerHTML;
+            return t.toLowerCase().indexOf(str) < 0; }
+        ).hide();
+        $(selectedFolder).focus();
+        break;
+    }
+    $('#folder-selector-filter').focus();
+}
+rcmail.addEventListener('init', function(evt) {
+    //force the folder menu to populate
+    var e = {}
+    e.target = $('#messagemenulink')
+    rcmail.folder_selector(e, function(folder) {});
+    //hide it
+    rcmail.hide_menu('folder-selector', e);
+
+    //Now we need to mess up the folder selector quite a bit
+    $('#folder-selector ul').before("<input style='text' id='folder-selector-filter' style='width: 90%; padding: 2px 6px;' />");
+    $('#folder-selector ul').wrap("<div id='folder-selector-inner'></div>");
+    $('#folder-selector').css({
+        'overflow':'',
+        'overflow-y':'',
+        'max-height':''
+    });
+    $('#folder-selector-inner').css({
+        'overflow':'-moz-scrollbars-vertical',
+        'overflow-y':'auto',
+        'max-height':'250px'
+    });
+
+    //Add the event handlers
+    $('#folder-selector-filter').keyup(function(e) { 
+        folderfilter(e, $(this).val()); 
+    });
+    $('#folder-selector-filter').bind('mouseup', function(e) { 
+        e.stopImmediatePropagation(); 
+    });
+});
