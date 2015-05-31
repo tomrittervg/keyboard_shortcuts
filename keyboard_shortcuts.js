@@ -97,13 +97,14 @@ $(function() {
         case 117:		// u = update (check for mail)
           rcmail.command('checkmail');
           return false;
-		case 120:		// x = select
-		  //I need to find the focused row somehow.  This is not the 'correct' way to do it, I'd love to for someone to correct this
-		  var row_uid = 0;
-		  row_uid = $('#messagelist .focused .chbox input').attr('id').replace('rcmselect', '');
-		  rcmail.message_list.select_row(row_uid, CONTROL_KEY, true);
-		  $("#selectcount").html(rcmail.message_list.selection.length);
-		  return false;
+        case 120:       // x = select
+          var row_uid = $('#messagelist .focused').data('uid');
+          rcube_list_widget._instances[0].highlight_row(row_uid, true);
+          //I don't think I need to call select_row, it may do some extra stuff, but I don't think I need it.
+          //rcmail.message_list.select_row(row_uid, CONTROL_KEY, true);
+          rcube_list_widget._instances[0].triggerEvent('select');
+          $("#selectcount").html(rcmail.message_list.selection.length);
+          return false;
       }
     } else if (rcmail.env.action == 'show' || rcmail.env.action == 'preview') {
       switch (e.which) {
