@@ -109,6 +109,8 @@ $(function() {
           //Simulate an event, anchored to a random element
           var e = {}
           e.target = $('#messagemenulink')
+          //Clear any lingering selected elements
+          $('#folder-selector ul li a.selected').removeClass('selected');
           //Open the folder selector
           $('#folder-selector ul li').show();
           rcmail.folder_selector(e, function(folder) { rcmail.command('move', folder); });
@@ -198,6 +200,7 @@ var folderfilter = function(e, str) {
         //Reset filter
         $('#folder-selector-filter').val('');
         $('#folder-selector ul li').show();
+        $('#folder-selector ul li a.selected').removeClass('selected');
 
         $('#messagemenulink').blur();
         break;
@@ -225,8 +228,12 @@ rcmail.addEventListener('init', function(evt) {
     rcmail.hide_menu('folder-selector', e);
 
     //Now we need to mess up the folder selector quite a bit
-    $('#folder-selector ul').before("<input style='text' id='folder-selector-filter' style='width: 90%; padding: 2px 6px;' />");
+    $('#folder-selector ul').before("<input style='text' id='folder-selector-filter' />");
     $('#folder-selector ul').wrap("<div id='folder-selector-inner'></div>");
+    $('#folder-selector-filter').css({
+        'width': '158px', 
+        'padding': '2px 6px'
+    });
     $('#folder-selector').css({
         'overflow':'',
         'overflow-y':'',
